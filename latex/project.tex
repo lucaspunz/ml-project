@@ -30,4 +30,28 @@
         Dec 1st, 2023
     \end{center}
 \end{titlepage}
+
+% Background Information Page
+\newpage
+\section*{Background Information}
+
+\subsection*{Problem Statement}
+As university students we receive a large amount of spam emails. These emails clutter our inboxes and make it difficult to get the information that we need. To alleviate this problem, we would like to develop a classifier that recognizes spam and separates it from important emails, helping us to manage email effectively.
+
+% Motivation
+\subsection*{Motivation}
+The increasing volume of spam emails poses a significant challenge to university students, filling our inboxes and preventing us from efficiently accessing important information. This daily deluge not only disrupts our workflow but also effects our ability to stay organized and focused on academic and personal tasks.
+
+\subsection*{Data Sources}
+This dataset is a collection of 5172 emails that are labeled as either spam or important. There are 3002 total columns. The first column holds the email name, the last column is a 1 for spam and a 0 for not spam. The remaining 3000 columns are the 3000 most common words in all the emails.
+
+To prepare the dataset for the algorithms we dropped some columns with low variance. 
+
+\subsection*{Goals}
+We are going to develop a Machine learning algorithm that will interpret whether an email can be declared as spam or not. The given dataset will be used as a training model for our algorithm that will decipher whether an email contains spam related content.
+We wanted to ensure that the algorithm minimizes false positives, thus preventing important emails from being incorrectly classified as spam. Also ensure that genuine spam is not missed. We hope that this algorithm will have an approximate rate of 7 percent in total spam misclassification.
+This 7 percent  comes from previous uses of this dataset with different algorithms. We will apply multiple ML models (linear regression/ logistic regression/etc) to this data set and evaluate their performance. We will find the best performing model and comment on it.
+
+
+
 \end{document}
