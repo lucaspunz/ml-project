@@ -76,8 +76,9 @@ def predict_all():
     data = request.get_json(force=True)
     prediction_logistic = predict_string(pickle.load(open('models/logistic_regression_model.pkl', 'rb')), X.columns, data['input'])
     prediction_naive_bayes = predict_string(pickle.load(open('models/naive_bayes_model.pkl', 'rb')), X2_train.columns, data['input'])
+    prediction_random_forest = predict_string(pickle.load(open('models/random_forest_model.pkl', 'rb')), X2_train.columns, data['input'])
 
-    return jsonify({'logistic': prediction_logistic, 'naive_bayes': prediction_naive_bayes})
+    return jsonify({'logistic': prediction_logistic, 'naive_bayes': prediction_naive_bayes, 'random_forest': prediction_random_forest})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)

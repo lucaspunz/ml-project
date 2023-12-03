@@ -9,7 +9,8 @@ export function EmailSpamClassifier() {
   const [results, setResults] = useState<{
     logistic: number;
     naive_bayes: number;
-  }>({ logistic: 0, naive_bayes: 0 });
+    random_forest: number;
+  }>({ logistic: 0, naive_bayes: 0, random_forest: 0 });
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,6 +26,7 @@ export function EmailSpamClassifier() {
     setResults({
       logistic: data.logistic,
       naive_bayes: data.naive_bayes,
+      random_forest: data.random_forest,
     });
   }
   return (
@@ -82,6 +84,14 @@ export function EmailSpamClassifier() {
             </CardHeader>
             <CardContent>
               <p>Spam Probability: {results.naive_bayes * 100}%</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-gradient-to-r from-blue-500 to-green-500 text-white">
+            <CardHeader>
+              <CardTitle>Random Forest</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Spam Probability: {results.random_forest * 100}%</p>
             </CardContent>
           </Card>
         </div>
