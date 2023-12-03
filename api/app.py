@@ -5,6 +5,7 @@ import pickle
 import pandas as pd
 import re
 import logging
+from sklearn.model_selection import train_test_split
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -16,7 +17,14 @@ logistic_regression = pickle.load(open('models/logistic_regression_model.pkl', '
 
 dataset = pd.read_csv('emails.csv')
 data = dataset.copy().drop(columns='Email No.')
-X = data.drop(columns=['Prediction'])
+X = data.drop(columns=["Prediction"])
+y = data["Prediction"]
+
+# clean dataset
+clean_dataset = pd.read_csv("cleaned_dataset.csv")
+X2 = clean_dataset.drop(columns=["Prediction"])
+y2 = clean_dataset["Prediction"]
+X2_train, X2_test, y2_train, y2_test = train_test_split(X2, y2, test_size=0.2, random_state=42)
 
 def preprocess_input_string(input_string, columns):
     # Tokenize the input string and count the occurrence of each word
@@ -36,15 +44,12 @@ def preprocess_input_string(input_string, columns):
 
     return input_df
 
-def predict_string(input_string):
-    # Load the trained model
-    loaded_model = pickle.load(open('models/logistic_regression_model.pkl', 'rb'))
-
+def predict_string(model, cols, input_string):
     # Preprocess the input string to match the dataset's format
-    processed_input_df = preprocess_input_string(input_string, X.columns)
+    processed_input_df = preprocess_input_string(input_string, cols)
 
     # Make a prediction using predict_proba
-    probabilities = loaded_model.predict_proba(processed_input_df)
+    probabilities = model.predict_proba(processed_input_df)
 
     # Extract the probability of the positive class
     positive_class_probability = probabilities[0][1]
@@ -60,8 +65,19 @@ def predict_logistic():
     For rendering results with JSON
     '''
     data = request.get_json(force=True)
-    prediction = predict_string(data['input'])
+    prediction = predict_string(pickle.load(open('models/logistic_regression_model.pkl', 'rb')), X.columns, data['input'])
     return jsonify({'logistic': prediction})
 
+@app.route('/predict/all',methods=['POST'])
+def predict_all():
+    '''
+    For rendering results with JSON
+    '''
+    data = request.get_json(force=True)
+    prediction_logistic = predict_string(pickle.load(open('models/logistic_regression_model.pkl', 'rb')), X.columns, data['input'])
+    prediction_naive_bayes = predict_string(pickle.load(open('models/naive_bayes_model.pkl', 'rb')), X2_train.columns, data['input'])
+
+    return jsonify({'logistic': prediction_logistic, 'naive_bayes': prediction_naive_bayes})
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

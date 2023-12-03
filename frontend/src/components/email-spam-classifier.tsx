@@ -6,12 +6,15 @@ import { useState } from "react";
 export function EmailSpamClassifier() {
   const [emailContent, setEmailContent] = useState<string>("");
 
-  const [results, setResults] = useState<{ logistic: number }>({ logistic: 0 });
+  const [results, setResults] = useState<{
+    logistic: number;
+    naive_bayes: number;
+  }>({ logistic: 0, naive_bayes: 0 });
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:5000/predict/logistic", {
+    const response = await fetch("http://127.0.0.1:5001/predict/all", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +24,7 @@ export function EmailSpamClassifier() {
     const data = await response.json();
     setResults({
       logistic: data.logistic,
+      naive_bayes: data.naive_bayes,
     });
   }
   return (
@@ -70,6 +74,14 @@ export function EmailSpamClassifier() {
             </CardHeader>
             <CardContent>
               <p>Spam Probability: {results.logistic * 100}%</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-gradient-to-r from-blue-500 to-green-500 text-white">
+            <CardHeader>
+              <CardTitle>Naive Bayes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Spam Probability: {results.naive_bayes * 100}%</p>
             </CardContent>
           </Card>
         </div>
