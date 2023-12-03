@@ -4,9 +4,13 @@ from flask_cors import CORS
 import pickle
 import pandas as pd
 import re
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
-CORS(app, origins=["*"])
+app.logger.setLevel(logging.DEBUG)
+CORS(app, origins=["*"], allow_headers=["*"], methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 
 logistic_regression = pickle.load(open('models/logistic_regression_model.pkl', 'rb'))
 
@@ -46,6 +50,10 @@ def predict_string(input_string):
     positive_class_probability = probabilities[0][1]
     return positive_class_probability
 
+@app.route('/live', methods=['GET'])
+def live():
+    return "Live"
+
 @app.route('/predict/logistic',methods=['POST'])
 def predict_logistic():
     '''
@@ -56,4 +64,4 @@ def predict_logistic():
     return jsonify({'logistic': prediction})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
