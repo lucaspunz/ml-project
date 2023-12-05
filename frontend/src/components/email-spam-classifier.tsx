@@ -15,7 +15,7 @@ export function EmailSpamClassifier() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:5001/predict/all", {
+    const response = await fetch("/api/predict/all", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export function EmailSpamClassifier() {
             </h1>
             <p className="mx-auto max-w-[700px] text-zinc-400 md:text-lg dark:text-zinc-500">
               Enter the content of your email and our machine learning models
-              will predict if it's spam or not.
+              will predict if it{"'"}s spam or not.
             </p>
           </div>
           <div className="w-full space-y-2">
