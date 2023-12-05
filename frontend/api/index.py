@@ -1,12 +1,12 @@
 from flask import Flask, request, jsonify
-# from flask_cors import CORS
+from flask_cors import CORS
 import pickle
 import pandas as pd
 import re
-# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 app = Flask(__name__)
-# CORS(app, origins=["*"], allow_headers=["*"], methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+CORS(app, origins=["*"], allow_headers=["*"], methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 
 logistic_regression = pickle.load(open('models/logistic_regression_model.pkl', 'rb'))
 naive_bayes = pickle.load(open('models/naive_bayes_model.pkl', 'rb'))
@@ -20,7 +20,7 @@ y = data["Prediction"]
 clean_dataset = pd.read_csv("data/cleaned_dataset.csv")
 X2 = clean_dataset.drop(columns=["Prediction"])
 y2 = clean_dataset["Prediction"]
-# X2_train, X2_test, y2_train, y2_test = train_test_split(X2, y2, test_size=0.2, random_state=42)
+X2_train, X2_test, y2_train, y2_test = train_test_split(X2, y2, test_size=0.2, random_state=42)
 
 def preprocess_input_string(input_string, columns):
     # Tokenize the input string and count the occurrence of each word
@@ -62,8 +62,8 @@ def predict_all():
     '''
     data = request.get_json(force=True)
     prediction_logistic = predict_string(logistic_regression, X.columns, data['input'])
-    prediction_naive_bayes = predict_string(naive_bayes, X2.columns, data['input'])
-    prediction_random_forest = predict_string(random_forest, X2.columns, data['input'])
+    prediction_naive_bayes = predict_string(naive_bayes, X2_train.columns, data['input'])
+    prediction_random_forest = predict_string(random_forest, X2_train.columns, data['input'])
 
     return jsonify({'logistic': prediction_logistic, 'naive_bayes': prediction_naive_bayes, 'random_forest': prediction_random_forest})
 
