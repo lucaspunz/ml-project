@@ -15,13 +15,16 @@ export function EmailSpamClassifier() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:5001/predict/all", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ input: emailContent }),
-    });
+    const response = await fetch(
+      "https://ml-project-bwogibf4cq-uw.a.run.app/predict/all",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ input: emailContent }),
+      }
+    );
     const data = await response.json();
     setResults({
       logistic: data.logistic,
