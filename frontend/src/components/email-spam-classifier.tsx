@@ -39,7 +39,7 @@ export function EmailSpamClassifier() {
           <div className="space-y-2">
             {/* write a header saying this is for ECS 171 Group 5 */}
             <h2 className="text-xl font-semibold tracking-tighter sm:text-2xl text-zinc-500 dark:text-zinc-400">
-              ECS 171 Fall 2023 Group 5 - Joe, Zhenshuo, Amar, Lucas
+              ECS 171 Fall 2023 Group 5 - Joe, Zhenshuo, Amar, Lucas, and Omar
             </h2>
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
               Email Spam Classifier
