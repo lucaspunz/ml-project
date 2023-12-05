@@ -43,7 +43,7 @@ export function EmailSpamClassifier() {
             </h1>
             <p className="mx-auto max-w-[700px] text-zinc-400 md:text-lg dark:text-zinc-500">
               Enter the content of your email and our machine learning models
-              will predict if it's spam or not.
+              will predict if it{"'"}s spam or not.
             </p>
           </div>
           <div className="w-full space-y-2">

@@ -1,16 +1,11 @@
-import numpy as np
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pickle
 import pandas as pd
 import re
-import logging
 from sklearn.model_selection import train_test_split
 
-logging.basicConfig(level=logging.DEBUG)
-
 app = Flask(__name__)
-app.logger.setLevel(logging.DEBUG)
 CORS(app, origins=["*"], allow_headers=["*"], methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
 
 logistic_regression = pickle.load(open('models/logistic_regression_model.pkl', 'rb'))
