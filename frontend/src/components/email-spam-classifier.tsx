@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function EmailSpamClassifier() {
   const [emailContent, setEmailContent] = useState<string>("");
@@ -12,11 +12,28 @@ export function EmailSpamClassifier() {
     random_forest: number;
   }>({ logistic: 0, naive_bayes: 0, random_forest: 0 });
 
+  const [connected, setConnected] = useState<boolean>(false);
+
+  async function fetchLive() {
+    const res = await fetch(
+      process.env.NODE_ENV === "production"
+        ? "https://ml-project-bwogibf4cq-uw.a.run.app/live"
+        : "http://localhost:5001/live"
+    );
+    const data = await res.text();
+    if (data.toLowerCase().startsWith("live")) setConnected(true);
+  }
+  useEffect(() => {
+    fetchLive();
+  }, []);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const response = await fetch(
-      "https://ml-project-bwogibf4cq-uw.a.run.app/predict/all",
+      process.env.NODE_ENV === "production"
+        ? "https://ml-project-bwogibf4cq-uw.a.run.app/predict/all"
+        : "http://localhost:5001/predict/all",
       {
         method: "POST",
         headers: {
@@ -37,7 +54,6 @@ export function EmailSpamClassifier() {
       <div className="px-4 md:px-6">
         <div className="flex flex-col items-center space-y-4 text-center">
           <div className="space-y-2">
-            {/* write a header saying this is for ECS 171 Group 5 */}
             <h2 className="text-xl font-semibold tracking-tighter sm:text-2xl text-zinc-500 dark:text-zinc-400">
               ECS 171 Fall 2023 Group 5 - Joe, Zhenshuo, Amar, Lucas, and Omar
             </h2>
@@ -47,6 +63,9 @@ export function EmailSpamClassifier() {
             <p className="mx-auto max-w-[700px] text-zinc-400 md:text-lg dark:text-zinc-500">
               Enter the content of your email and our machine learning models
               will predict if it{"'"}s spam or not.
+            </p>
+            <p className="text-base font-medium tracking-tighter text-zinc-400 dark:text-zinc-500">
+              Status: {connected ? "Connected" : "Disconnected"}
             </p>
           </div>
           <div className="w-full space-y-2">
