@@ -4,8 +4,6 @@
 
 Welcome to our ECS 171 Machine Learning project repository. This project includes an API, a frontend, and various Jupyter notebooks for different machine learning models. Our API is built with Flask and hosted on Google Cloud Run, while the frontend is developed using Next.js and hosted on Vercel.
 
-**Important Note on Backend Cold Starts**
-
 ## Project Structure
 
 - **API**: Contains the Flask backend server (`app.py`). Hosted on Google Cloud Run, note .
