@@ -49,6 +49,10 @@ Welcome to our ECS 171 Machine Learning project repository. This project include
 - The frontend is hosted on Vercel and the backend on Google Cloud Run.
 - Note: The backend server might need some time to warm up. Check if the frontend displays "Backend: Connected". If it shows "Backend: Disconnected", refresh the page a few times.
 
+### Running the Jupyter Notebooks
+- The Jupyter notebooks are located in the root directory.
+- Install by running `pip install -r requirements.txt` in the root directory.
+
 ## Contributors
 
 - [Lucas Punz](https://github.com/lucaspunz)
