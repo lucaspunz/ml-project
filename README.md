@@ -17,6 +17,7 @@ We appreciate your patience and understanding regarding this aspect of cloud-bas
 - **Jupyter Notebooks**: Located in the root directory, including `ANN.ipynb`, `decision_tree.ipynb`, `EDA.ipynb`, `histogram_and_pair_plot.ipynb`, `logistic.ipynb`, `Naive_Bayes.ipynb`, `random_forest.ipynb`, `SVM.ipynb`.
 
 ## Installation and Setup
+[Video Tutorial](https://drive.google.com/file/d/11-k7_zFbdooiE9jKfJvr-d6x6G5dE-dK/view)
 
 ### Backend
 
