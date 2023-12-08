@@ -6,14 +6,12 @@ Welcome to our ECS 171 Machine Learning project repository. This project include
 
 **Important Note on Backend Cold Starts**
 
-When using our Flask API hosted on Google Cloud Run, it's crucial to allow the backend server time to get past its cold starts before attempting to run the demo. This is specific to the version hosted on Google Cloud Run and is not an issue when running the server locally.
-The server might initially show "Backend: Disconnected" on the frontend. If this happens, please refresh the page a few times until it displays "Backend: Connected". This indicates that the backend has successfully warmed up and is ready to handle requests efficiently.
-We appreciate your patience and understanding regarding this aspect of cloud-based server management.
-
 ## Project Structure
 
 - **API**: Contains the Flask backend server (`app.py`). Hosted on Google Cloud Run, note .
 - **Frontend**: Developed in Next.js. Hosted on Vercel at [ml.lpu.nz](https://ml.lpu.nz).
+    - When using our Flask API hosted on Google Cloud Run, it's crucial to allow the backend server time to get past its cold starts before attempting to run the demo. This is specific to the version hosted on Google Cloud Run and is not an issue when running the server locally.
+    - The server might initially show "Backend: Disconnected" on the frontend. If this happens, please refresh the page a few times until it displays "Backend: Connected". This indicates that the backend has successfully warmed up and is ready to handle requests efficiently.
 - **Jupyter Notebooks**: Located in the root directory, including `ANN.ipynb`, `decision_tree.ipynb`, `EDA.ipynb`, `histogram_and_pair_plot.ipynb`, `logistic.ipynb`, `Naive_Bayes.ipynb`, `random_forest.ipynb`, `SVM.ipynb`.
 
 ## Installation and Setup
